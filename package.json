@@ -1,0 +1,23 @@
+{
+  "name": "vite-ali-oss-plugin",
+  "version": "1.0.0",
+  "description": "打包后自动上传到阿里云OSS的vite插件",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "release": "tsc && npm publish"
+  },
+  "author": "代码厨子",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "@types/ali-oss": "^6.16.7",
+    "@types/glob": "^8.0.0",
+    "@types/node": "^18.11.17",
+    "ali-oss": "^6.17.1",
+    "glob": "^8.0.3",
+    "typescript": "^4.9.4",
+    "vite": "^4.0.3"
+  }
+}
