@@ -1,7 +1,8 @@
 import path from "path";
 import glob from "glob";
 import OSS from "ali-oss";
-import { ConfigEnv, normalizePath, UserConfig } from "vite";
+import type { ConfigEnv, UserConfig } from "vite";
+import { normalizePath } from "vite";
 
 interface Option {
   region: string;
@@ -24,7 +25,7 @@ interface PluginRes {
   closeBundle(): Promise<void>;
 }
 
-export default function viteAliOssPlugin<PluginRes>(options: Option) {
+export default function viteAliOssPlugin(options: Option) {
   let basePath = "/";
   let buildConfig: any = {};
 
@@ -67,7 +68,6 @@ export default function viteAliOssPlugin<PluginRes>(options: Option) {
         basePath = options.basePath;
       }
       basePath = (basePath || "").replace(/\/$/, "");
-      console.log(basePath);
       if (options.overwrite) {
         const fileList = await client.listV2(
           {
@@ -76,7 +76,7 @@ export default function viteAliOssPlugin<PluginRes>(options: Option) {
           },
           {}
         );
-        let objs: string[] = [];
+        const objs: string[] = [];
         fileList.objects.forEach((ele) => {
           objs.push(ele.name);
         });
@@ -87,8 +87,7 @@ export default function viteAliOssPlugin<PluginRes>(options: Option) {
           console.log("");
         }
       }
-
-      console.log(basePath);
+      basePath = basePath.replace(".", "");
       for (const fileFullPath of files) {
         const filePath = fileFullPath.split(outDirPath)[1];
 
@@ -100,7 +99,6 @@ export default function viteAliOssPlugin<PluginRes>(options: Option) {
           console.log(`test upload path: ${output}`);
           continue;
         }
-
         if (options.overwrite) {
           await client.put(ossFilePath, fileFullPath, {
             headers: options.headers || {},
