@@ -1,6 +1,6 @@
 {
   "name": "vite-ali-oss-plugin",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "打包后自动上传到阿里云OSS的vite插件",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

@@ -1,7 +1,7 @@
 import path from "path";
 import glob from "glob";
 import OSS from "ali-oss";
-import { normalizePath } from "vite";
+import { ConfigEnv, normalizePath, UserConfig } from "vite";
 
 interface Option {
   region: string;
@@ -16,7 +16,15 @@ interface Option {
   test?: string | any;
 }
 
-export default function viteAliOssPlugin(options: Option) {
+interface PluginRes {
+  name: string;
+  enforce: "pre" | "post" | undefined;
+  apply: "build" | "serve" | ((this: void, config: UserConfig, env: ConfigEnv) => boolean) | undefined;
+  configResolved(config: any): void;
+  closeBundle(): Promise<void>;
+}
+
+export default function viteAliOssPlugin<PluginRes>(options: Option) {
   let basePath = "/";
   let buildConfig: any = {};
 
@@ -24,7 +32,7 @@ export default function viteAliOssPlugin(options: Option) {
     return;
   }
 
-  return {
+  return <PluginRes>{
     name: "vite-ali-oss-plugin",
     enforce: "post",
     apply: "build",
