@@ -25,7 +25,7 @@ interface PluginRes {
   closeBundle(): Promise<void>;
 }
 
-export default function viteAliOssPlugin(options: Option) {
+export default function viteAliOssPlugin(options: Option): PluginRes | undefined {
   let basePath = "/";
   let buildConfig: any = {};
 
@@ -33,7 +33,7 @@ export default function viteAliOssPlugin(options: Option) {
     return;
   }
 
-  return <PluginRes>{
+  return {
     name: "vite-ali-oss-plugin",
     enforce: "post",
     apply: "build",
