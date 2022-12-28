@@ -1,7 +1,6 @@
 import path from "path";
 import glob from "glob";
 import OSS from "ali-oss";
-import type { ConfigEnv, UserConfig } from "vite";
 import { normalizePath } from "vite";
 
 interface Option {
@@ -20,7 +19,7 @@ interface Option {
 interface PluginRes {
   name: string;
   enforce: "pre" | "post" | undefined;
-  apply: "build" | "serve" | ((this: void, config: UserConfig, env: ConfigEnv) => boolean) | undefined;
+  apply: "build" | "serve";
   configResolved(config: any): void;
   closeBundle(): Promise<void>;
 }
